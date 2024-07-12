@@ -289,7 +289,7 @@ form {
     align-items: center;
     stroke-dasharray: 340;
     stroke-dashoffset: 340;
-    transition: stroke-dashoffset 0.08s;
+    transition: stroke-dashoffset 0.8s;
 }
 
 #graphic-base {

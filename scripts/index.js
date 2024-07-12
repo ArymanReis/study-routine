@@ -3,7 +3,8 @@ const nameMather = document.querySelector("#mather");
 const startDate = document.querySelector("#date-start");
 const endDate = document.querySelector("#date-conclusion");
 const completedNumber = document.querySelector("#goals-completed");
-const dataGraphic = document.querySelector("#data-graphic")
+const dataGraphic = document.querySelector("#data-graphic");
+let graphicProgress = document.querySelector("#graphic-progress");
 
 let count = 0;
 let anotherCount = 0;
@@ -69,12 +70,24 @@ function updateClasses() {
 
 }
 
-
-const updateCompletedNumber = () => {
+function updateCompletedNumber() {
     completedNumber.innerHTML = anotherCount;
 };
 
+//Gráfico
+function progress() {
 
+    let numberMatherValue = numberMather.value;
+    let goalMade = (340 - (340 * anotherCount++) / 100);
+    let calcGoalMade = ((anotherCount * 100) / numberMatherValue);
+
+    let result = (calcGoalMade === goalMade);
+
+    graphicProgress.style.strokeDashoffset = result;
+    //console.log(calcGoalMade);
+    console.log(result);
+    
+};
 
 startBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -88,8 +101,9 @@ startBtn.addEventListener("click", (e) => {
 });
 
 addBtnCompleted.addEventListener("click", () => {
-    anotherCount++;
     updateCompletedNumber();
+    progress();
+
 });
 
 subtractBtnCompleted.addEventListener("click", () => {
@@ -97,14 +111,8 @@ subtractBtnCompleted.addEventListener("click", () => {
     updateCompletedNumber();
 });
 
-//Gráfico
-let graphicProgress = document.querySelector("#graphic-progress");
 
-const valueStart = 340;
-const valueFinal = 0;
 
-function progress() {
-    graphicProgress.style.strokeDashoffset = (valueFinal);
-};
 
-progress();
+
+
