@@ -8,6 +8,7 @@ let graphicProgress = document.querySelector("#graphic-progress");
 
 let count = 0;
 let anotherCount = 0;
+let countProgress = 1;
 
 const startBtn = document.querySelector("#start");
 const addBtnCompleted = document.querySelector("#to-add");
@@ -70,23 +71,20 @@ function updateClasses() {
 
 }
 
-function updateCompletedNumber() {
-    completedNumber.innerHTML = anotherCount;
-};
-
 //Gráfico
 function progress() {
 
+    let addProgress = countProgress++;
+
     let numberMatherValue = numberMather.value;
-    let goalMade = (340 - (340 * anotherCount++) / 100);
-    let calcGoalMade = ((anotherCount * 100) / numberMatherValue);
+    let calcGoalsValue = (addProgress * 100) / numberMatherValue; 
+    let graphicProgressCalc = (340 - (340 * calcGoalsValue) / 100);
 
-    let result = (calcGoalMade === goalMade);
+    if (addProgress <= numberMatherValue ) {
+    completedNumber.innerHTML = addProgress;
 
-    graphicProgress.style.strokeDashoffset = result;
-    //console.log(calcGoalMade);
-    console.log(result);
-    
+    graphicProgress.style.strokeDashoffset = graphicProgressCalc;
+    }
 };
 
 startBtn.addEventListener("click", (e) => {
@@ -101,7 +99,7 @@ startBtn.addEventListener("click", (e) => {
 });
 
 addBtnCompleted.addEventListener("click", () => {
-    updateCompletedNumber();
+
     progress();
 
 });
