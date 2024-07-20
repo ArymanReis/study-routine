@@ -8,7 +8,7 @@ let graphicProgress = document.querySelector("#graphic-progress");
 
 let count = 0;
 let anotherCount = 0;
-let countProgress = 1;
+let countProgress = 0;
 
 const startBtn = document.querySelector("#start");
 const addBtnCompleted = document.querySelector("#to-add");
@@ -74,17 +74,40 @@ function updateClasses() {
 //Gráfico
 function progress() {
 
-    let addProgress = countProgress++;
+    countProgress ++;
+    let showProgress = dataGraphic;
 
     let numberMatherValue = numberMather.value;
-    let calcGoalsValue = (addProgress * 100) / numberMatherValue; 
+    let calcGoalsValue = (countProgress * 100) / numberMatherValue; 
     let graphicProgressCalc = (340 - (340 * calcGoalsValue) / 100);
 
-    if (addProgress <= numberMatherValue ) {
-    completedNumber.innerHTML = addProgress;
+    if ( countProgress <= numberMatherValue ) {
+    completedNumber.innerHTML = countProgress;
+    showProgress.innerHTML = calcGoalsValue + "%";
 
     graphicProgress.style.strokeDashoffset = graphicProgressCalc;
-    }
+    } 
+
+    console.log(graphicProgressCalc);
+
+};
+
+function progressSubtract() {
+
+    countProgress--;
+    let showProgress = dataGraphic;
+
+    let numberMatherValue = numberMather.value;
+    let calcGoalsValue = (countProgress * 100) / numberMatherValue; 
+    let graphicProgressCalc = (340 - (340 * calcGoalsValue) / 100);
+
+    if (countProgress <= numberMatherValue) {
+    completedNumber.innerHTML = countProgress;
+    showProgress.innerHTML = calcGoalsValue + "%";
+
+    graphicProgress.style.strokeDashoffset = graphicProgressCalc;
+    }  
+    
 };
 
 startBtn.addEventListener("click", (e) => {
@@ -105,11 +128,8 @@ addBtnCompleted.addEventListener("click", () => {
 });
 
 subtractBtnCompleted.addEventListener("click", () => {
-    anotherCount--;
-    updateCompletedNumber();
+    progressSubtract();
 });
-
-
 
 
 
